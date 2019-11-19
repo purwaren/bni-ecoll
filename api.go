@@ -6,10 +6,9 @@ import (
     "github.com/hashicorp/go-retryablehttp"
     "github.com/purwaren/bni-ecoll/config"
     "github.com/purwaren/bni-ecoll/dto"
-    "io"
     "io/ioutil"
+    "log"
     "net/http"
-    "strings"
 )
 
 type API struct {
@@ -23,9 +22,11 @@ func newApi(config config.Config) *API {
 }
 
 func (a *API) postRequest(req dto.EncryptedRequest) (dto.EncryptedResponse, error) {
-    request, err := retryablehttp.NewRequest(http.MethodPost, a.conf.URL, req)
+    bodyReq, _ := json.Marshal(req)
+    request, err := retryablehttp.NewRequest(http.MethodPost, a.conf.URL, bytes.NewBuffer(bodyReq))
 
     if err != nil {
+        log.Printf("Error NewRequest")
         return dto.EncryptedResponse{}, err
     }
 
