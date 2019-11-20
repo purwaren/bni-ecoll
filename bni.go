@@ -14,7 +14,7 @@ type BNI struct {
 
 }
 
-func New(conf config.Config) *BNI {
+func NewEcolApi(conf config.Config) *BNI {
     a := newApi(conf)
     bni := BNI{config: conf, api: a}
     return &bni

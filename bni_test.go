@@ -17,17 +17,14 @@ func TestBNI_CreateBilling(t *testing.T) {
 
     bni := New(givenConfig)
 
-    req := dto.CreateBillingRequest{
-        Type: "createbilling",
-        ClientId: givenConfig.ClientId,
-        TrxId: "20191119204304304008",
-        BillingType: "c",
-        TrxAmount: "100000",
-        CustomerName: "Purwa Ren",
-        CustomerPhone: "0845934953945",
-        CustomerEmail: "and.thau@gmail.com",
-        DateTimeExpired: "2019-11-19T21:00:00+07:00",
-    }
+    req := dto.NewBillingRequest()
+    req.TrxId = "20191119204304304008"
+    req.TrxAmount = "100000"
+    req.CustomerName = "Purwa Ren"
+    req.CustomerPhone = "039239993435"
+    req.CustomerEmail = "and.thau@gmail.com"
+    req.DateTimeExpired = "2019-11-19T21:00:00+07:00"
+
     log.Printf("req: %s", req)
     res, err := bni.CreateBilling(req)
 

@@ -24,6 +24,13 @@ type CreateBillingRequest struct {
     Description     string  `json:"description"`
 }
 
+func NewBillingRequest() CreateBillingRequest {
+    return CreateBillingRequest{
+        Type: "createbilling",
+        BillingType: "c",
+    }
+}
+
 type PaymentNotification struct {
     VirtualAccount  string `json:"virtual_account"`
     CustomerName    string `json:"customer_name"`
