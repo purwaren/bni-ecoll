@@ -54,6 +54,15 @@ func (b *BNI) CreateBilling (req dto.CreateBillingRequest) (dto.CreateBillingRes
 }
 
 func (b *BNI) PaymentNotification (req dto.EncryptedRequest) (dto.PaymentNotification, error) {
-    return dto.PaymentNotification{}, nil
+    decByte, err := util.ParseData(req.Data, b.config.ClientId, b.config.SecretKey)
+    if err != nil {
+        return dto.PaymentNotification{}, err
+    }
+    var resp dto.PaymentNotification
+    err = json.Unmarshal(decByte, &resp)
+    if err != nil {
+        return dto.PaymentNotification{}, err
+    }
+    return resp, nil
 }
 
